@@ -3,6 +3,9 @@ package com.example.wiki.service;
 import com.example.wiki.domain.Ebook;
 import com.example.wiki.domain.EbookExample;
 import com.example.wiki.mapper.EbookMapper;
+import com.example.wiki.req.EbookReq;
+import com.example.wiki.resp.EbookResp;
+import com.example.wiki.util.CopyUtil;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -15,12 +18,16 @@ public class EbookService {
     public List<Ebook> list(){
         return ebookMapper.selectByExample(null);
     }
-    public List<Ebook> FindEbookByName(String name){
+    public List<EbookResp> FindEbookByName(EbookReq ebookReq){
         //下面两项是固定
         EbookExample ebookExample =new EbookExample();
         EbookExample.Criteria criteria= ebookExample.createCriteria();
         //模糊查询
-        criteria.andNameLike("%"+name+"%");
-        return ebookMapper.selectByExample(ebookExample);
+        criteria.andNameLike("%"+ebookReq.getName()+"%");
+        //查询的结果
+        List<Ebook> ebookList = ebookMapper.selectByExample(ebookExample);
+        //将查询的结果转换成想要显示的一些参数
+        List<EbookResp> list = CopyUtil.copyList(ebookList,EbookResp.class);
+        return list;
     }
 }
