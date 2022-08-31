@@ -25,7 +25,7 @@ public class EbookController {
         CommonResp<List<EbookResp>> resp = new CommonResp<>();
         List<EbookResp> list= ebookService.FindEbookByName(ebookReq);
         resp.setMessage("查询成功");
-        resp.setContent(list);
+        resp.setData(list);
         return resp;
     }
     //查询所有
@@ -34,7 +34,7 @@ public class EbookController {
         CommonResp<List<Ebook>> resp = new CommonResp<>();
         List<Ebook> list= ebookService.list();
         resp.setMessage("获取成功");
-        resp.setContent(list);
+        resp.setData(list);
         return resp;
     }
 }
