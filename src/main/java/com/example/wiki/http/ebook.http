@@ -1,1 +1,4 @@
 GET http://localhost:8080/ebook/findall
+
+###
+GET http://localhost:8080/ebook/find?name=Harold
