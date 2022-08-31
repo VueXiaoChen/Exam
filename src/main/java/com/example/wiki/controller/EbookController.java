@@ -30,9 +30,9 @@ public class EbookController {
     }
     //查询所有
     @GetMapping("/findall")
-    public CommonResp list(){
-        CommonResp<List<Ebook>> resp = new CommonResp<>();
-        List<Ebook> list= ebookService.list();
+    public CommonResp list(EbookReq ebookReq){
+        CommonResp<List<EbookResp>> resp = new CommonResp<>();
+        List<EbookResp> list= ebookService.list(ebookReq);
         resp.setMessage("获取成功");
         resp.setData(list);
         return resp;

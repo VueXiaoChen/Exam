@@ -2,6 +2,18 @@ package com.example.wiki.resp;
 
 public class EbookResp {
 
+
+    private Long id;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    private String  name;
     private Long category1Id;
 
     private Long category2Id;
@@ -15,6 +27,13 @@ public class EbookResp {
     private Integer viewCount;
 
     private Integer voteCount;
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Long getCategory1Id() {
         return category1Id;
@@ -78,6 +97,8 @@ public class EbookResp {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
+        sb.append(", id=").append(id).toString();
+        sb.append(", name=").append(name).toString();
         sb.append(", category1Id=").append(category1Id).toString();
         sb.append(", category2Id=").append(category2Id).toString();
         sb.append(", description=").append(description).toString();
