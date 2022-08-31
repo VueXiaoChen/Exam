@@ -38,6 +38,19 @@
             <version>8.0.22</version>
         </dependency>
 
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.70</version>
+        </dependency>
+
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -75,6 +88,8 @@
                     <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
+
+
             <!-- mybatis generator 自动生成代码插件 -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
