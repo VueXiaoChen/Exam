@@ -2,6 +2,8 @@ package com.example.wiki.service;
 
 import com.example.wiki.domain.Ebook;
 import com.example.wiki.domain.EbookExample;
+import com.example.wiki.exception.BusinessException;
+import com.example.wiki.exception.BusinessExceptionCode;
 import com.example.wiki.mapper.EbookMapper;
 import com.example.wiki.req.EbookReq;
 import com.example.wiki.req.EbookSaveReq;
@@ -14,6 +16,7 @@ import com.example.wiki.util.SnowFlake;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
@@ -69,10 +72,16 @@ public class EbookService {
     public void EbookSave(EbookSaveReq req){
         Ebook ebook = CopyUtil.copy(req,Ebook.class);
         if(ObjectUtils.isEmpty(req.getId())){
-            //雪花算法生成Id
-            ebook.setId(snowFlake.nextId());
-            //增加数据
-            ebookMapper.insert(ebook);
+
+            if(ObjectUtils.isEmpty(SelectByName(req.getName()))){
+                //雪花算法生成Id
+                ebook.setId(snowFlake.nextId());
+                //增加数据
+                ebookMapper.insert(ebook);
+            }else{
+                //自定义检验
+                throw  new BusinessException(BusinessExceptionCode.USER_LOGIN_NAME_EXIST);
+            }
         }else {
             //修改数据
             ebookMapper.updateByPrimaryKey(ebook);
@@ -87,5 +96,21 @@ public class EbookService {
     //单个删除
     public void DeleteEbook(long id){
         ebookMapper.deleteByPrimaryKey(id);
+    }
+    //不能有相同的名字检验
+    public Ebook SelectByName(String name){
+        //固定2个
+        EbookExample ebookExample =new EbookExample();
+        EbookExample.Criteria criteria= ebookExample.createCriteria();
+        //通过传过来的名字
+        criteria.andNameEqualTo(name);
+        //查询
+        List<Ebook> ebookList = ebookMapper.selectByExample(ebookExample);
+        //
+        if(CollectionUtils.isEmpty(ebookList)){
+            return null;
+        }else {
+            return ebookList.get(0);
+        }
     }
 }

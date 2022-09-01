@@ -40,14 +40,14 @@ const add = () => {
   axios
     .post("http://localhost:8080/ebook/save", data)
     .then((res) => {
-      console.log("增加成功");
+      console.log(res);
     });
 };
 
 onMounted(async () => {
   const params = ref({
     page: 1,
-    size: 10000,
+    size: 100,
   });
 
   // const data  = axios.post()  8e6d2315f3b54fb78e2d2a5d8d558cce

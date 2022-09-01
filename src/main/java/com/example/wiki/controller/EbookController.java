@@ -32,7 +32,7 @@ public class EbookController {
     //保存
     //@RequestBody注解表示 使用json方式传值
     @PostMapping("/save")
-    public CommonResp EbookSave(@RequestBody EbookSaveReq ebookSaveReq){
+    public CommonResp EbookSave(@Valid @RequestBody EbookSaveReq ebookSaveReq){
         CommonResp resp = new CommonResp<>();
         ebookService.EbookSave(ebookSaveReq);
         return resp;
@@ -63,7 +63,7 @@ public class EbookController {
     }
     //Post删除
     @PostMapping("/delete")
-    public CommonResp DeleteEbooks(@RequestBody long[] id){
+    public CommonResp DeleteEbooks(@Valid @RequestBody long[] id){
         CommonResp resp = new CommonResp<>();
         ebookService.DeleteBatchEbook(id);
         return resp;
