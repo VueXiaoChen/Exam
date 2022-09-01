@@ -78,9 +78,14 @@ public class EbookService {
             ebookMapper.updateByPrimaryKey(ebook);
         }
     }
-    //删除
+    //批量删除
+    public void DeleteBatchEbook(long[] id){
+        for(int i=0;i<id.length;i++){
+            ebookMapper.deleteByPrimaryKey(id[i]);
+        }
+    }
+    //单个删除
     public void DeleteEbook(long id){
         ebookMapper.deleteByPrimaryKey(id);
     }
-
 }

@@ -45,11 +45,25 @@ public class EbookController {
         resp.setData(list);
         return resp;
     }
-    //删除
+    //批量删除
+//    @DeleteMapping("/delete/{id}")
+//    public CommonResp DeleteBatchEbook(@PathVariable("id") long[] id){
+//        CommonResp resp = new CommonResp<>();
+//        ebookService.DeleteBatchEbook(id);
+//        return resp;
+//    }
+    //单个删除
     @DeleteMapping("/delete/{id}")
     public CommonResp DeleteEbook(@PathVariable long id){
         CommonResp resp = new CommonResp<>();
         ebookService.DeleteEbook(id);
+        return resp;
+    }
+    //Post删除
+    @PostMapping("/delete")
+    public CommonResp DeleteEbooks(@RequestBody EbookSaveReq ebookSaveReq){
+        CommonResp resp = new CommonResp<>();
+        ebookService.DeleteEbook(ebookSaveReq.getId());
         return resp;
     }
 }

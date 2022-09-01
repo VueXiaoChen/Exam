@@ -13,24 +13,27 @@ const update = () => {
     });
 };
 const deletes = () => {
-  console.log(data.value.data.list);
-  
   // axios
-  //   .delete("http://localhost:8080/ebook/delete/"+ 9)
+  //   .delete("http://localhost:8080/ebook/delete/"+ [1,2,3,4])
   //   .then((res) => {
   //     console.log(res);
   //   });
+  axios
+    .post("http://localhost:8080/ebook/delete", {id:6})
+    .then((res) => {
+      console.log("增加成功");
+    });
 };
 const add = () => {
   const data = {
-    name: "345345345345",
-    category1Id: 23423,
-    category2Id: 58234235,
-    description: "234234",
-    cover: "VCHAq5345mBUGN",
-    docCount: 234,
-    viewCount: 234,
-    voteCount: 623423431,
+    name: "1",
+    category1Id: 2,
+    category2Id: 3,
+    description: "4",
+    cover: "5",
+    docCount: 6,
+    viewCount: 7,
+    voteCount: 8,
   };
   axios
     .post("http://localhost:8080/ebook/save", data)
