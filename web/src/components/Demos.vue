@@ -12,6 +12,15 @@ const update = () => {
       console.log("修改成功");
     });
 };
+const deletes = () => {
+  console.log(data.value.data.list);
+  
+  // axios
+  //   .delete("http://localhost:8080/ebook/delete/"+ 9)
+  //   .then((res) => {
+  //     console.log(res);
+  //   });
+};
 const add = () => {
   const data = {
     name: "345345345345",
@@ -33,7 +42,7 @@ const add = () => {
 onMounted(async () => {
   const params = ref({
     page: 1,
-    size: 10,
+    size: 10000,
   });
 
   // const data  = axios.post()  8e6d2315f3b54fb78e2d2a5d8d558cce
@@ -49,6 +58,8 @@ onMounted(async () => {
       },
     })
     .then((res) => {
+      console.log(res);
+      
       data.value = res.data;
     });
 });
@@ -56,6 +67,7 @@ onMounted(async () => {
 <template>
   <el-button type="primary" @click="update">修改</el-button>
   <el-button type="primary" @click="add">增加</el-button>
+  <el-button type="primary" @click="deletes">删除</el-button>
 </template>
 
 <style scoped>

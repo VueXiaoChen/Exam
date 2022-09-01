@@ -1,4 +1,4 @@
-GET http://localhost:8080/ebook/findall?page=1&size=10
+GET http://localhost:8080/ebook/findall?page=1&size=20
 
 ###
 GET http://localhost:8080/ebook/find?name=h&page=2&size=4
@@ -11,5 +11,7 @@ Content-Type: application/json
   "id": 1,
   "name":"xiaochen22222222222222"
 }
+###
+DELETE http://localhost:8080/ebook/delete?id=220423094622359552
 
 ###

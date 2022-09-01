@@ -45,4 +45,11 @@ public class EbookController {
         resp.setData(list);
         return resp;
     }
+    //删除
+    @DeleteMapping("/delete/{id}")
+    public CommonResp DeleteEbook(@PathVariable long id){
+        CommonResp resp = new CommonResp<>();
+        ebookService.DeleteEbook(id);
+        return resp;
+    }
 }

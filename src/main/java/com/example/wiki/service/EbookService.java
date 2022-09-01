@@ -10,6 +10,7 @@ import com.example.wiki.resp.EbookResp;
 import com.example.wiki.resp.PageResp;
 import com.example.wiki.util.CopyUtil;
 
+import com.example.wiki.util.SnowFlake;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,8 @@ import java.util.List;
 public class EbookService {
     @Resource
     private EbookMapper ebookMapper;
+    @Resource
+    private SnowFlake snowFlake;
     //查询所有
     public PageResp<EbookResp> list(EbookReq ebookReq){
         //进行分页
@@ -62,12 +65,22 @@ public class EbookService {
         pageResp.setList(result);
         return pageResp;
     }
+    //修改或者增加
     public void EbookSave(EbookSaveReq req){
         Ebook ebook = CopyUtil.copy(req,Ebook.class);
         if(ObjectUtils.isEmpty(req.getId())){
+            //雪花算法生成Id
+            ebook.setId(snowFlake.nextId());
+            //增加数据
             ebookMapper.insert(ebook);
         }else {
+            //修改数据
             ebookMapper.updateByPrimaryKey(ebook);
         }
     }
+    //删除
+    public void DeleteEbook(long id){
+        ebookMapper.deleteByPrimaryKey(id);
+    }
+
 }
