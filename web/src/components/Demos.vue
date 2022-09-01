@@ -4,6 +4,7 @@ import axios from "axios";
 import { onMounted, reactive, ref } from "vue";
 
 const data = ref();
+const ids = []
 const update = () => {
   data.value.data.list[0].name = "我是谁啊";
   axios
@@ -18,10 +19,11 @@ const deletes = () => {
   //   .then((res) => {
   //     console.log(res);
   //   });
+
   axios
-    .post("http://localhost:8080/ebook/delete", {id:6})
+    .post("http://localhost:8080/ebook/delete/",ids)
     .then((res) => {
-      console.log("增加成功");
+      console.log("删除成功");
     });
 };
 const add = () => {
@@ -61,9 +63,10 @@ onMounted(async () => {
       },
     })
     .then((res) => {
-      console.log(res);
-      
       data.value = res.data;
+      for(let i=0;i<4;i++){
+        ids.push(data.value.data.list[i].id)
+      }
     });
 });
 </script>
