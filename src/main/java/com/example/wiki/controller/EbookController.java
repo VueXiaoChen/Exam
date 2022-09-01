@@ -12,6 +12,7 @@ import com.example.wiki.service.EbookService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -37,8 +38,9 @@ public class EbookController {
         return resp;
     }
     //查询所有
+    //@Valid开始参数验证,这里验证的是page的是PageReq的页数
     @GetMapping("/findall")
-    public CommonResp list(EbookReq ebookReq){
+    public CommonResp list(@Valid EbookReq ebookReq){
         CommonResp<PageResp<EbookResp>> resp = new CommonResp<>();
         PageResp<EbookResp> list= ebookService.list(ebookReq);
         resp.setMessage("获取成功");
