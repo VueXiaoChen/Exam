@@ -6,6 +6,7 @@ import com.example.wiki.domain.Ebook;
 import com.example.wiki.req.EbookReq;
 import com.example.wiki.resp.CommonResp;
 import com.example.wiki.resp.EbookResp;
+import com.example.wiki.resp.PageResp;
 import com.example.wiki.service.EbookService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,10 +23,10 @@ public class EbookController {
     //通过书名查询
     @GetMapping("/find")
     public CommonResp FindEbookByName(EbookReq ebookReq){
-        CommonResp<List<EbookResp>> resp = new CommonResp<>();
-        List<EbookResp> list= ebookService.FindEbookByName(ebookReq);
+        CommonResp<PageResp<EbookResp>> resp = new CommonResp<>();
+        PageResp<EbookResp> result= ebookService.FindEbookByName(ebookReq);
         resp.setMessage("查询成功");
-        resp.setData(list);
+        resp.setData(result);
         return resp;
     }
     //查询所有
