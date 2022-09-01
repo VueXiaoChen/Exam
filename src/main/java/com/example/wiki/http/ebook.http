@@ -1,4 +1,15 @@
-GET http://localhost:8080/ebook/findall?page=1&size=4
+GET http://localhost:8080/ebook/findall?page=1&size=10
 
 ###
 GET http://localhost:8080/ebook/find?name=h&page=2&size=4
+
+###
+POST http://localhost:8080/ebook/save
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name":"xiaochen22222222222222"
+}
+
+###

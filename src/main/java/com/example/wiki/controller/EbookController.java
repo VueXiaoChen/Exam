@@ -4,14 +4,12 @@ package com.example.wiki.controller;
 
 import com.example.wiki.domain.Ebook;
 import com.example.wiki.req.EbookReq;
+import com.example.wiki.req.EbookSaveReq;
 import com.example.wiki.resp.CommonResp;
 import com.example.wiki.resp.EbookResp;
 import com.example.wiki.resp.PageResp;
 import com.example.wiki.service.EbookService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -28,6 +26,14 @@ public class EbookController {
         PageResp<EbookResp> result= ebookService.FindEbookByName(ebookReq);
         resp.setMessage("查询成功");
         resp.setData(result);
+        return resp;
+    }
+    //保存
+    //@RequestBody注解表示 使用json方式传值
+    @PostMapping("/save")
+    public CommonResp EbookSave(@RequestBody EbookSaveReq ebookSaveReq){
+        CommonResp resp = new CommonResp<>();
+        ebookService.EbookSave(ebookSaveReq);
         return resp;
     }
     //查询所有

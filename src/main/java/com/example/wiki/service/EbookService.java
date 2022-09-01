@@ -4,6 +4,7 @@ import com.example.wiki.domain.Ebook;
 import com.example.wiki.domain.EbookExample;
 import com.example.wiki.mapper.EbookMapper;
 import com.example.wiki.req.EbookReq;
+import com.example.wiki.req.EbookSaveReq;
 import com.example.wiki.req.PageReq;
 import com.example.wiki.resp.EbookResp;
 import com.example.wiki.resp.PageResp;
@@ -12,6 +13,7 @@ import com.example.wiki.util.CopyUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -59,5 +61,13 @@ public class EbookService {
         //返回数据
         pageResp.setList(result);
         return pageResp;
+    }
+    public void EbookSave(EbookSaveReq req){
+        Ebook ebook = CopyUtil.copy(req,Ebook.class);
+        if(ObjectUtils.isEmpty(req.getId())){
+            ebookMapper.insert(ebook);
+        }else {
+            ebookMapper.updateByPrimaryKey(ebook);
+        }
     }
 }
