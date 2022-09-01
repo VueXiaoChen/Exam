@@ -9,6 +9,7 @@ import com.example.wiki.resp.EbookResp;
 import com.example.wiki.resp.PageResp;
 import com.example.wiki.service.EbookService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,8 +33,8 @@ public class EbookController {
     //查询所有
     @GetMapping("/findall")
     public CommonResp list(EbookReq ebookReq){
-        CommonResp<List<EbookResp>> resp = new CommonResp<>();
-        List<EbookResp> list= ebookService.list(ebookReq);
+        CommonResp<PageResp<EbookResp>> resp = new CommonResp<>();
+        PageResp<EbookResp> list= ebookService.list(ebookReq);
         resp.setMessage("获取成功");
         resp.setData(list);
         return resp;

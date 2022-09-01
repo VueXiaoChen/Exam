@@ -21,13 +21,20 @@ public class EbookService {
     @Resource
     private EbookMapper ebookMapper;
     //查询所有
-    public List<EbookResp> list(EbookReq ebookReq){
-        //分页
+    public PageResp<EbookResp> list(EbookReq ebookReq){
+        //进行分页
         PageHelper.startPage(ebookReq.getPage(),ebookReq.getSize());
         List<Ebook> ebookList = ebookMapper.selectByExample(null);
         //将查询的结果转换成想要显示的一些参数
         List<EbookResp> list = CopyUtil.copyList(ebookList,EbookResp.class);
-        return list;
+        //定义分页类
+        PageInfo<Ebook> pageInfo = new PageInfo<>(ebookList);
+        //返回Page
+        PageResp<EbookResp> pageResp = new PageResp<>();
+        //加入分页
+        pageResp.setTotal(pageInfo.getTotal());
+        pageResp.setList(list);
+        return pageResp;
     }
     //模糊查询
     public PageResp<EbookResp> FindEbookByName(EbookReq ebookReq){
