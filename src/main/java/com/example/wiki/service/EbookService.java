@@ -8,11 +8,12 @@ import com.example.wiki.mapper.EbookMapper;
 import com.example.wiki.mapper.EbookMapperCust;
 import com.example.wiki.req.EbookReq;
 import com.example.wiki.req.EbookSaveReq;
-import com.example.wiki.req.PageReq;
 import com.example.wiki.resp.EbookResp;
 import com.example.wiki.resp.PageResp;
 import com.example.wiki.util.CopyUtil;
 
+import com.example.wiki.util.RedisUtil;
+import com.example.wiki.util.RequestContext;
 import com.example.wiki.util.SnowFlake;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -29,9 +30,10 @@ public class EbookService {
     private EbookMapper ebookMapper;
     @Resource
     private SnowFlake snowFlake;
-
     @Resource
     private EbookMapperCust ebookMapperCust;
+    @Resource
+    private RedisUtil redisUtil;
     //查询所有
     public PageResp<EbookResp> list(EbookReq ebookReq){
         //进行分页
@@ -119,6 +121,14 @@ public class EbookService {
     }
 
     public void AddDocCount(long id){
-        ebookMapperCust.increaseEbook(id);
+       ebookMapperCust.increaseEbook(id);
+       String ip = RequestContext.getRemoteAddr();
+       if(redisUtil.validateRepeat("DOC_COUNT"+id+"_"+ip,3600*24)){
+           //通过redis判断是否在一天内点赞过
+           ebookMapperCust.increaseEbook(id);
+       }else{
+           //自定义异常处理
+            throw  new BusinessException(BusinessExceptionCode.VOTE_REPEAT);
+       }
     }
 }
