@@ -43,7 +43,13 @@ const add = () => {
       console.log(res);
     });
 };
-
+const adddoccount = ()=>{
+  axios
+    .post("http://localhost:8080/ebook/adddoccount/" + 5)
+    .then((res) => {
+      console.log(res);
+    });
+}
 onMounted(async () => {
   const params = ref({
     page: 1,
@@ -74,6 +80,8 @@ onMounted(async () => {
   <el-button type="primary" @click="update">修改</el-button>
   <el-button type="primary" @click="add">增加</el-button>
   <el-button type="primary" @click="deletes">删除</el-button>
+  <el-button type="primary" @click="adddoccount">点赞功能测试</el-button>
+  
 </template>
 
 <style scoped>

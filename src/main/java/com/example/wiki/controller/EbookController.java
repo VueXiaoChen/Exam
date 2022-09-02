@@ -35,6 +35,7 @@ public class EbookController {
     public CommonResp EbookSave(@Valid @RequestBody EbookSaveReq ebookSaveReq){
         CommonResp resp = new CommonResp<>();
         ebookService.EbookSave(ebookSaveReq);
+        resp.setMessage("保存成功");
         return resp;
     }
     //查询所有
@@ -52,6 +53,7 @@ public class EbookController {
     public CommonResp DeleteBatchEbook(@RequestParam long[] id){
         CommonResp resp = new CommonResp<>();
         ebookService.DeleteBatchEbook(id);
+        resp.setMessage("删除成功");
         return resp;
     }
     //单个删除
@@ -59,6 +61,7 @@ public class EbookController {
     public CommonResp DeleteEbook(@PathVariable long id){
         CommonResp resp = new CommonResp<>();
         ebookService.DeleteEbook(id);
+        resp.setMessage("删除成功");
         return resp;
     }
     //Post删除
@@ -66,6 +69,17 @@ public class EbookController {
     public CommonResp DeleteEbooks(@Valid @RequestBody long[] id){
         CommonResp resp = new CommonResp<>();
         ebookService.DeleteBatchEbook(id);
+        resp.setMessage("删除成功");
         return resp;
     }
+    //测试自定义mapper方法用的
+    @PostMapping("/adddoccount/{id}")
+    public CommonResp AddDocCount(@PathVariable long id){
+        CommonResp resp = new CommonResp<>();
+        ebookService.AddDocCount(id);
+        resp.setMessage("点赞成功");
+        return resp;
+    }
+
+
 }

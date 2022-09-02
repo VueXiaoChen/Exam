@@ -5,6 +5,7 @@ import com.example.wiki.domain.EbookExample;
 import com.example.wiki.exception.BusinessException;
 import com.example.wiki.exception.BusinessExceptionCode;
 import com.example.wiki.mapper.EbookMapper;
+import com.example.wiki.mapper.EbookMapperCust;
 import com.example.wiki.req.EbookReq;
 import com.example.wiki.req.EbookSaveReq;
 import com.example.wiki.req.PageReq;
@@ -28,6 +29,9 @@ public class EbookService {
     private EbookMapper ebookMapper;
     @Resource
     private SnowFlake snowFlake;
+
+    @Resource
+    private EbookMapperCust ebookMapperCust;
     //查询所有
     public PageResp<EbookResp> list(EbookReq ebookReq){
         //进行分页
@@ -112,5 +116,9 @@ public class EbookService {
         }else {
             return ebookList.get(0);
         }
+    }
+
+    public void AddDocCount(long id){
+        ebookMapperCust.increaseEbook(id);
     }
 }
