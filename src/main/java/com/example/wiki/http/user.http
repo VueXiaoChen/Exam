@@ -1,0 +1,21 @@
+GET http://localhost:8080/user/all?page=1&size=3
+
+###
+POST http://localhost:8080/user/save
+Content-Type: application/json
+
+{
+  "id": 1753354246,
+  "userName": "student2222222222222",
+  "password":"2324234",
+  "realName": "学生",
+  "age": 2188,
+  "sex": 1,
+  "birthDay": 123,
+  "phone": "19171171610",
+  "role": 1,
+  "imagePath": "https://www.mindskip.net:9008/image/ba607a75-83ba-4530-8e23-660b72dc4953/头像.jpg",
+  "wxOpenId": 55555
+}
+
+###

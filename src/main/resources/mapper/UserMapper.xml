@@ -114,7 +114,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.example.wiki.domain.User">
+  <insert id="insert" keyProperty="id" useGeneratedKeys="true" parameterType="com.example.wiki.domain.User">
     insert into t_user (id, user_uuid, user_name, 
       `password`, real_name, age, 
       sex, birth_day, user_level, 
