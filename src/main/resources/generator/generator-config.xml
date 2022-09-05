@@ -39,12 +39,18 @@
                              targetPackage="com.example.wiki.mapper"
                              type="XMLMAPPER"/>
 
-<!--        <table tableName="test" domainObjectName="Demo"/>-->
-        <table tableName="ebook" domainObjectName="Ebook"/>
-        <!--<table tableName="category"/>-->
-        <!--<table tableName="doc"/>-->
-        <!--<table tableName="content"/>-->
-        <!--<table tableName="user"/>-->
+<!--        <table tableName="test" domainObjectName="Demo"/>--><table tableName="t_exam_paper_answer" domainObjectName="ExamPaperAnswer"/>
+        <table tableName="t_exam_paper_question_customer_answer" domainObjectName="ExaPaperQuestionCustomerAnswer"/>
+        <table tableName="t_message" domainObjectName="Message"/>
+        <table tableName="t_message_user" domainObjectName="MessageUser"/>
+        <table tableName="t_question" domainObjectName="Question"/>
+        <table tableName="t_subject" domainObjectName="Subject"/>
+        <table tableName="t_task_exam" domainObjectName="TaskExam"/>
+        <table tableName="t_task_exam_customer_answer" domainObjectName="TaskExamCustomerAnswer"/>
+        <table tableName="t_text_content" domainObjectName="TextContent"/>
+        <table tableName="t_user" domainObjectName="User"/>
+        <table tableName="t_user_event_log" domainObjectName="UserEventLog"/>
+        <table tableName="t_user_token" domainObjectName="UserToken"/>
 
     </context>
 </generatorConfiguration>

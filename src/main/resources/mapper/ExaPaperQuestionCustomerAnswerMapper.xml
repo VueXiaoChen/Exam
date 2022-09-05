@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.wiki.mapper.ExaPaperQuestionCustomerAnswerMapper">
+  <resultMap id="BaseResultMap" type="com.example.wiki.domain.ExaPaperQuestionCustomerAnswer">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="question_id" jdbcType="INTEGER" property="questionId" />
+    <result column="exam_paper_id" jdbcType="INTEGER" property="examPaperId" />
+    <result column="exam_paper_answer_id" jdbcType="INTEGER" property="examPaperAnswerId" />
+    <result column="question_type" jdbcType="INTEGER" property="questionType" />
+    <result column="subject_id" jdbcType="INTEGER" property="subjectId" />
+    <result column="customer_score" jdbcType="INTEGER" property="customerScore" />
+    <result column="question_score" jdbcType="INTEGER" property="questionScore" />
+    <result column="question_text_content_id" jdbcType="INTEGER" property="questionTextContentId" />
+    <result column="answer" jdbcType="VARCHAR" property="answer" />
+    <result column="text_content_id" jdbcType="INTEGER" property="textContentId" />
+    <result column="do_right" jdbcType="BIT" property="doRight" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="item_order" jdbcType="INTEGER" property="itemOrder" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, question_id, exam_paper_id, exam_paper_answer_id, question_type, subject_id, 
+    customer_score, question_score, question_text_content_id, answer, text_content_id, 
+    do_right, create_user, create_time, item_order
+  </sql>
+  <select id="selectByExample" parameterType="com.example.wiki.domain.ExaPaperQuestionCustomerAnswerExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_exam_paper_question_customer_answer
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_exam_paper_question_customer_answer
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_exam_paper_question_customer_answer
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.example.wiki.domain.ExaPaperQuestionCustomerAnswerExample">
+    delete from t_exam_paper_question_customer_answer
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.example.wiki.domain.ExaPaperQuestionCustomerAnswer">
+    insert into t_exam_paper_question_customer_answer (id, question_id, exam_paper_id, 
+      exam_paper_answer_id, question_type, subject_id, 
+      customer_score, question_score, question_text_content_id, 
+      answer, text_content_id, do_right, 
+      create_user, create_time, item_order
+      )
+    values (#{id,jdbcType=INTEGER}, #{questionId,jdbcType=INTEGER}, #{examPaperId,jdbcType=INTEGER}, 
+      #{examPaperAnswerId,jdbcType=INTEGER}, #{questionType,jdbcType=INTEGER}, #{subjectId,jdbcType=INTEGER}, 
+      #{customerScore,jdbcType=INTEGER}, #{questionScore,jdbcType=INTEGER}, #{questionTextContentId,jdbcType=INTEGER}, 
+      #{answer,jdbcType=VARCHAR}, #{textContentId,jdbcType=INTEGER}, #{doRight,jdbcType=BIT}, 
+      #{createUser,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{itemOrder,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.wiki.domain.ExaPaperQuestionCustomerAnswer">
+    insert into t_exam_paper_question_customer_answer
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="questionId != null">
+        question_id,
+      </if>
+      <if test="examPaperId != null">
+        exam_paper_id,
+      </if>
+      <if test="examPaperAnswerId != null">
+        exam_paper_answer_id,
+      </if>
+      <if test="questionType != null">
+        question_type,
+      </if>
+      <if test="subjectId != null">
+        subject_id,
+      </if>
+      <if test="customerScore != null">
+        customer_score,
+      </if>
+      <if test="questionScore != null">
+        question_score,
+      </if>
+      <if test="questionTextContentId != null">
+        question_text_content_id,
+      </if>
+      <if test="answer != null">
+        answer,
+      </if>
+      <if test="textContentId != null">
+        text_content_id,
+      </if>
+      <if test="doRight != null">
+        do_right,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="itemOrder != null">
+        item_order,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="questionId != null">
+        #{questionId,jdbcType=INTEGER},
+      </if>
+      <if test="examPaperId != null">
+        #{examPaperId,jdbcType=INTEGER},
+      </if>
+      <if test="examPaperAnswerId != null">
+        #{examPaperAnswerId,jdbcType=INTEGER},
+      </if>
+      <if test="questionType != null">
+        #{questionType,jdbcType=INTEGER},
+      </if>
+      <if test="subjectId != null">
+        #{subjectId,jdbcType=INTEGER},
+      </if>
+      <if test="customerScore != null">
+        #{customerScore,jdbcType=INTEGER},
+      </if>
+      <if test="questionScore != null">
+        #{questionScore,jdbcType=INTEGER},
+      </if>
+      <if test="questionTextContentId != null">
+        #{questionTextContentId,jdbcType=INTEGER},
+      </if>
+      <if test="answer != null">
+        #{answer,jdbcType=VARCHAR},
+      </if>
+      <if test="textContentId != null">
+        #{textContentId,jdbcType=INTEGER},
+      </if>
+      <if test="doRight != null">
+        #{doRight,jdbcType=BIT},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="itemOrder != null">
+        #{itemOrder,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.wiki.domain.ExaPaperQuestionCustomerAnswerExample" resultType="java.lang.Long">
+    select count(*) from t_exam_paper_question_customer_answer
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_exam_paper_question_customer_answer
+    <set>
+      <if test="row.id != null">
+        id = #{row.id,jdbcType=INTEGER},
+      </if>
+      <if test="row.questionId != null">
+        question_id = #{row.questionId,jdbcType=INTEGER},
+      </if>
+      <if test="row.examPaperId != null">
+        exam_paper_id = #{row.examPaperId,jdbcType=INTEGER},
+      </if>
+      <if test="row.examPaperAnswerId != null">
+        exam_paper_answer_id = #{row.examPaperAnswerId,jdbcType=INTEGER},
+      </if>
+      <if test="row.questionType != null">
+        question_type = #{row.questionType,jdbcType=INTEGER},
+      </if>
+      <if test="row.subjectId != null">
+        subject_id = #{row.subjectId,jdbcType=INTEGER},
+      </if>
+      <if test="row.customerScore != null">
+        customer_score = #{row.customerScore,jdbcType=INTEGER},
+      </if>
+      <if test="row.questionScore != null">
+        question_score = #{row.questionScore,jdbcType=INTEGER},
+      </if>
+      <if test="row.questionTextContentId != null">
+        question_text_content_id = #{row.questionTextContentId,jdbcType=INTEGER},
+      </if>
+      <if test="row.answer != null">
+        answer = #{row.answer,jdbcType=VARCHAR},
+      </if>
+      <if test="row.textContentId != null">
+        text_content_id = #{row.textContentId,jdbcType=INTEGER},
+      </if>
+      <if test="row.doRight != null">
+        do_right = #{row.doRight,jdbcType=BIT},
+      </if>
+      <if test="row.createUser != null">
+        create_user = #{row.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="row.createTime != null">
+        create_time = #{row.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="row.itemOrder != null">
+        item_order = #{row.itemOrder,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="example != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_exam_paper_question_customer_answer
+    set id = #{row.id,jdbcType=INTEGER},
+      question_id = #{row.questionId,jdbcType=INTEGER},
+      exam_paper_id = #{row.examPaperId,jdbcType=INTEGER},
+      exam_paper_answer_id = #{row.examPaperAnswerId,jdbcType=INTEGER},
+      question_type = #{row.questionType,jdbcType=INTEGER},
+      subject_id = #{row.subjectId,jdbcType=INTEGER},
+      customer_score = #{row.customerScore,jdbcType=INTEGER},
+      question_score = #{row.questionScore,jdbcType=INTEGER},
+      question_text_content_id = #{row.questionTextContentId,jdbcType=INTEGER},
+      answer = #{row.answer,jdbcType=VARCHAR},
+      text_content_id = #{row.textContentId,jdbcType=INTEGER},
+      do_right = #{row.doRight,jdbcType=BIT},
+      create_user = #{row.createUser,jdbcType=INTEGER},
+      create_time = #{row.createTime,jdbcType=TIMESTAMP},
+      item_order = #{row.itemOrder,jdbcType=INTEGER}
+    <if test="example != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.wiki.domain.ExaPaperQuestionCustomerAnswer">
+    update t_exam_paper_question_customer_answer
+    <set>
+      <if test="questionId != null">
+        question_id = #{questionId,jdbcType=INTEGER},
+      </if>
+      <if test="examPaperId != null">
+        exam_paper_id = #{examPaperId,jdbcType=INTEGER},
+      </if>
+      <if test="examPaperAnswerId != null">
+        exam_paper_answer_id = #{examPaperAnswerId,jdbcType=INTEGER},
+      </if>
+      <if test="questionType != null">
+        question_type = #{questionType,jdbcType=INTEGER},
+      </if>
+      <if test="subjectId != null">
+        subject_id = #{subjectId,jdbcType=INTEGER},
+      </if>
+      <if test="customerScore != null">
+        customer_score = #{customerScore,jdbcType=INTEGER},
+      </if>
+      <if test="questionScore != null">
+        question_score = #{questionScore,jdbcType=INTEGER},
+      </if>
+      <if test="questionTextContentId != null">
+        question_text_content_id = #{questionTextContentId,jdbcType=INTEGER},
+      </if>
+      <if test="answer != null">
+        answer = #{answer,jdbcType=VARCHAR},
+      </if>
+      <if test="textContentId != null">
+        text_content_id = #{textContentId,jdbcType=INTEGER},
+      </if>
+      <if test="doRight != null">
+        do_right = #{doRight,jdbcType=BIT},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="itemOrder != null">
+        item_order = #{itemOrder,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.wiki.domain.ExaPaperQuestionCustomerAnswer">
+    update t_exam_paper_question_customer_answer
+    set question_id = #{questionId,jdbcType=INTEGER},
+      exam_paper_id = #{examPaperId,jdbcType=INTEGER},
+      exam_paper_answer_id = #{examPaperAnswerId,jdbcType=INTEGER},
+      question_type = #{questionType,jdbcType=INTEGER},
+      subject_id = #{subjectId,jdbcType=INTEGER},
+      customer_score = #{customerScore,jdbcType=INTEGER},
+      question_score = #{questionScore,jdbcType=INTEGER},
+      question_text_content_id = #{questionTextContentId,jdbcType=INTEGER},
+      answer = #{answer,jdbcType=VARCHAR},
+      text_content_id = #{textContentId,jdbcType=INTEGER},
+      do_right = #{doRight,jdbcType=BIT},
+      create_user = #{createUser,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      item_order = #{itemOrder,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

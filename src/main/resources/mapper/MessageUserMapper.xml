@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.wiki.mapper.MessageUserMapper">
+  <resultMap id="BaseResultMap" type="com.example.wiki.domain.MessageUser">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="message_id" jdbcType="INTEGER" property="messageId" />
+    <result column="receive_user_id" jdbcType="INTEGER" property="receiveUserId" />
+    <result column="receive_user_name" jdbcType="VARCHAR" property="receiveUserName" />
+    <result column="receive_real_name" jdbcType="VARCHAR" property="receiveRealName" />
+    <result column="readed" jdbcType="BIT" property="readed" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="read_time" jdbcType="TIMESTAMP" property="readTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, message_id, receive_user_id, receive_user_name, receive_real_name, readed, create_time, 
+    read_time
+  </sql>
+  <select id="selectByExample" parameterType="com.example.wiki.domain.MessageUserExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_message_user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_message_user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_message_user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.example.wiki.domain.MessageUserExample">
+    delete from t_message_user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.example.wiki.domain.MessageUser">
+    insert into t_message_user (id, message_id, receive_user_id, 
+      receive_user_name, receive_real_name, readed, 
+      create_time, read_time)
+    values (#{id,jdbcType=INTEGER}, #{messageId,jdbcType=INTEGER}, #{receiveUserId,jdbcType=INTEGER}, 
+      #{receiveUserName,jdbcType=VARCHAR}, #{receiveRealName,jdbcType=VARCHAR}, #{readed,jdbcType=BIT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{readTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.wiki.domain.MessageUser">
+    insert into t_message_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="messageId != null">
+        message_id,
+      </if>
+      <if test="receiveUserId != null">
+        receive_user_id,
+      </if>
+      <if test="receiveUserName != null">
+        receive_user_name,
+      </if>
+      <if test="receiveRealName != null">
+        receive_real_name,
+      </if>
+      <if test="readed != null">
+        readed,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="readTime != null">
+        read_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="messageId != null">
+        #{messageId,jdbcType=INTEGER},
+      </if>
+      <if test="receiveUserId != null">
+        #{receiveUserId,jdbcType=INTEGER},
+      </if>
+      <if test="receiveUserName != null">
+        #{receiveUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveRealName != null">
+        #{receiveRealName,jdbcType=VARCHAR},
+      </if>
+      <if test="readed != null">
+        #{readed,jdbcType=BIT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="readTime != null">
+        #{readTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.wiki.domain.MessageUserExample" resultType="java.lang.Long">
+    select count(*) from t_message_user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_message_user
+    <set>
+      <if test="row.id != null">
+        id = #{row.id,jdbcType=INTEGER},
+      </if>
+      <if test="row.messageId != null">
+        message_id = #{row.messageId,jdbcType=INTEGER},
+      </if>
+      <if test="row.receiveUserId != null">
+        receive_user_id = #{row.receiveUserId,jdbcType=INTEGER},
+      </if>
+      <if test="row.receiveUserName != null">
+        receive_user_name = #{row.receiveUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="row.receiveRealName != null">
+        receive_real_name = #{row.receiveRealName,jdbcType=VARCHAR},
+      </if>
+      <if test="row.readed != null">
+        readed = #{row.readed,jdbcType=BIT},
+      </if>
+      <if test="row.createTime != null">
+        create_time = #{row.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="row.readTime != null">
+        read_time = #{row.readTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="example != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_message_user
+    set id = #{row.id,jdbcType=INTEGER},
+      message_id = #{row.messageId,jdbcType=INTEGER},
+      receive_user_id = #{row.receiveUserId,jdbcType=INTEGER},
+      receive_user_name = #{row.receiveUserName,jdbcType=VARCHAR},
+      receive_real_name = #{row.receiveRealName,jdbcType=VARCHAR},
+      readed = #{row.readed,jdbcType=BIT},
+      create_time = #{row.createTime,jdbcType=TIMESTAMP},
+      read_time = #{row.readTime,jdbcType=TIMESTAMP}
+    <if test="example != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.wiki.domain.MessageUser">
+    update t_message_user
+    <set>
+      <if test="messageId != null">
+        message_id = #{messageId,jdbcType=INTEGER},
+      </if>
+      <if test="receiveUserId != null">
+        receive_user_id = #{receiveUserId,jdbcType=INTEGER},
+      </if>
+      <if test="receiveUserName != null">
+        receive_user_name = #{receiveUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveRealName != null">
+        receive_real_name = #{receiveRealName,jdbcType=VARCHAR},
+      </if>
+      <if test="readed != null">
+        readed = #{readed,jdbcType=BIT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="readTime != null">
+        read_time = #{readTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.wiki.domain.MessageUser">
+    update t_message_user
+    set message_id = #{messageId,jdbcType=INTEGER},
+      receive_user_id = #{receiveUserId,jdbcType=INTEGER},
+      receive_user_name = #{receiveUserName,jdbcType=VARCHAR},
+      receive_real_name = #{receiveRealName,jdbcType=VARCHAR},
+      readed = #{readed,jdbcType=BIT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      read_time = #{readTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
